@@ -1,15 +1,23 @@
-const el = document.getElementById('timer')
-let timer
-let x = el.innerText
-countdown()
+const result = document.getElementById("clicker__counter")
+const img = document.getElementById("cookie")
+let count = 0
+const width = img.offsetWidth
+const height = img.offsetHeight
+let fl = true
 
-function countdown() {
-    x--
-    el.innerText = x
-    if (x === 0) {
-        clearTimeout(timer)
-        alert("Вы победили в конкурсе!")
+function clicker() {
+    count++
+    result.innerText = count
+    if (fl) {
+        img.style.height = height + 5 + "px"
+        img.style.width = width + "px"
+
     } else {
-        timer = setTimeout(countdown, 1000)
+        img.style.width = width + 5 + "px"
+        img.style.height = height + "px"
+
     }
+    fl = !fl
+
 }
+img.onclick = clicker
