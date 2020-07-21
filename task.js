@@ -1,23 +1,28 @@
-const result = document.getElementById("clicker__counter")
-const img = document.getElementById("cookie")
-let count = 0
-const width = img.offsetWidth
-const height = img.offsetHeight
-let fl = true
-
-function clicker() {
-    count++
-    result.innerText = count
-    if (fl) {
-        img.style.height = height + 5 + "px"
-        img.style.width = width + "px"
-
-    } else {
-        img.style.width = width + 5 + "px"
-        img.style.height = height + "px"
-
-    }
-    fl = !fl
-
+function getHole(index) {
+    return document.getElementById(`hole${index}`)
 }
-img.onclick = clicker
+const dead = document.getElementById('dead')
+const lost = document.getElementById('lost')
+
+function countClick(hole) {
+    const has = hole.className.includes('hole_has-mole')
+    const deadCount = +dead.textContent
+    const lostCount = +lost.textContent
+    if (has) {
+        dead.textContent = deadCount + 1
+    } else {
+        lost.textContent = lostCount + 1
+    }
+    if (lostCount === 5) {
+        alert("Вы проиграли!")
+    }
+    if (deadCount === 10) {
+        alert("Вы выйграли!")
+    }
+}
+let hole = null
+for (let i = 1; i <= 9; i++) {
+    hole = getHole(i)
+    console.log(hole)
+    hole.onclick = () => countClick(hole)
+}
